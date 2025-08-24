@@ -5,6 +5,10 @@ pipeline {
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
+
+    tools {
+        nodejs 'nodejs'  // 在全局工具配置中定义的名称
+    }
     
     stages {
         stage('Install Dependencies') {
