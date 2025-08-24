@@ -1,13 +1,9 @@
 pipeline {
     agent {
-        docker {
-            image 'docker:20.10.7'  // docker CLI 镜像
+         docker {
+            image 'node:18-alpine'  // 包含 Node.js 的镜像
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
-    }
-
-    tools {
-        nodejs 'nodejs'  // 在全局工具配置中定义的名称
     }
     
     stages {
