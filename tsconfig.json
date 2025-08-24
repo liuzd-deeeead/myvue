@@ -1,0 +1,15 @@
+// tsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": ".", // 必须配置
+    "paths": {
+      "@/*": ["./src/*"] // 路径别名
+    },
+    // 其他配置...
+  },
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
