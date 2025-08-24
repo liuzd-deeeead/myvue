@@ -4,28 +4,42 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
+                echo 'Installing dependencies...'
                 sh 'npm install'
             }
         }
         
         stage('Build') {
             steps {
+                echo 'Building project...'
                 sh 'npm run build'
             }
         }
         
         stage('Deploy') {
             steps {
-                // 只在 master 分支部署到生产环境
                 script {
-                    if (env.BRANCH_NAME == 'master') {
+                    if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'main') {
+                        echo 'Deploying to production...'
                         sh 'docker cp dist/. nginx-web:/usr/share/nginx/html/'
-                        echo 'Deployed to production'
+                        echo 'Deployed successfully!'
                     } else {
-                        echo "Branch ${env.BRANCH_NAME} built successfully, but not deployed"
+                        echo "Branch ${env.BRANCH_NAME} built successfully, but not deployed to production"
                     }
                 }
             }
+        }
+    }
+    
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+        always {
+            echo 'Pipeline finished.'
         }
     }
 }
